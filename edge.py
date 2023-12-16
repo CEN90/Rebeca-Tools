@@ -97,28 +97,34 @@ def start():
     parser.add_argument("-o", "--output", type=str)
 
     args = parser.parse_args()
+    output = ""
 
     if args.file is None or not os.path.exists(args.file):
         parser.exit(-1, "Error reading input file\n")
 
-    if args.output is None or not os.path.exists(args.output):
+    if args.output is not None and not os.path.exists(args.output):
         parser.exit(-1, "Output path does not exist\n")
 
-    return args.file, args.output
+    if args.output is None:
+        output = os.path.dirname(args.file) + '/tinytwin.hpp'
+    else:
+        output = args.output
+
+    return args.file, output
+
+# Otestat!
 
 args = start()
 
-file = args.file
-file_out = args.output
+file = args[0]
+file_out = args[1]
 
-print(file)
-print(file_out)
-
-
+# print(file)
+# print(file_out)
 
 # file = './Rebeca/statespaces/alarm_simple_reduced.aut'
 # file_out = os.path.dirname(__file__) +'/states.hpp'
 
-# start_state, total_states, total_transitions, transitions = parse_aut_file(file)
-# labels, new_transitions = replace_labels(transitions)
-# printer(file_out, start_state, total_states, total_transitions, labels, new_transitions)
+start_state, total_states, total_transitions, transitions = parse_aut_file(file)
+labels, new_transitions = replace_labels(transitions)
+printer(file_out, start_state, total_states, total_transitions, labels, new_transitions)
