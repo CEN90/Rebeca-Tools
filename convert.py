@@ -50,7 +50,5 @@ testextraction = len(open(tau, 'r').read().split())
 if testextraction == 0:
     print("Something went wrong during extraction")
 
-# print("python" + " reduce.py" + outlocation + autfile)
 # Reduce using convert.sh
 subprocess.run(["python", "reduce.py", outlocation + autfile])
-# subprocess.run([reduce, outlocation + autfile])

@@ -20,4 +20,7 @@ if extension != ".aut":
 subprocess.run(["ltsconvert", file, "--out=dot", filename + ".dot"])
 subprocess.run(["dot", "-Tpdf", filename + ".dot", "-o", filename + ".pdf"])
 
+if os.path.isfile(filename + ".dot"):
+    os.remove(filename + ".dot")
+
 print("Converted the reduced statespace.")
