@@ -21,7 +21,7 @@ projectname = os.path.basename(filename)
 basedir = os.path.dirname(os.path.dirname(filename))
 
 # Define paths based on the base directory and project name
-outlocation = os.path.join(basedir, "Rebeca", "statespaces") + "/"
+outlocation = os.path.join(basedir, "statespaces") + "/"
 observable = os.path.join(outlocation, "observable_actions.txt")
 tau = os.path.join(outlocation, "tau_transitions.txt")
 
@@ -31,16 +31,15 @@ cast = os.path.join(tools_dir, "Cast", "cast")
 extraction = os.path.join(tools_dir, "Extraction", "extraction")
 reduce = os.path.join(tools_dir, "convert.sh")
 
-autfile = projectname + "_reduced.aut"
+autfile = projectname + ".aut"
 
 # Replace .aut-file
 if os.path.isfile(outlocation + autfile):
     os.remove(outlocation + autfile)
-open(outlocation + autfile, 'a').close()
+open(outlocation + autfile, 'a')#.close()
 
 subprocess.run([cast, file], stdout=open(outlocation + autfile, 'w'))
 testautfile = len(open(outlocation + autfile, 'r').read().split())
-
 # Check that something was written out to the .aut-file
 if testautfile == 0:
     print("Something went wrong during casting")
@@ -51,6 +50,7 @@ testextraction = len(open(tau, 'r').read().split())
 if testextraction == 0:
     print("Something went wrong during extraction")
 
+# print("python" + " reduce.py" + outlocation + autfile)
 # Reduce using convert.sh
-subprocess.run(["python", outlocation + autfile])
+subprocess.run(["python", "reduce.py", outlocation + autfile])
 # subprocess.run([reduce, outlocation + autfile])

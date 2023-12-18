@@ -106,7 +106,7 @@ def start():
         parser.exit(-1, "Output path does not exist\n")
 
     if args.output is None:
-        output = os.path.dirname(args.file) + '/tinytwin.hpp'
+        output = os.path.dirname(args.file) + '/states.hpp'
     else:
         output = args.output
 
